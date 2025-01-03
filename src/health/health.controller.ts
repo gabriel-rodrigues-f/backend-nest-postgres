@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Controller, Get, HttpCode, HttpStatus, UseInterceptors } from "@nestjs/common";
 import { AuthTokenInterceptor } from "src/common/interceptors/auth-token.interceptor";
 
 // @UseInterceptors(AuthTokenInterceptor)
@@ -7,8 +7,9 @@ export class HealthController {
   @HttpCode(HttpStatus.OK)
   @Get()
   check (): any {
-    return {
-      status: "Healthy",
-    };
+    // return {
+    //   status: "Healthy",
+    // };
+    throw new BadRequestException('An error occurred')
   }
 }
