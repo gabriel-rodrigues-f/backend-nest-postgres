@@ -1,0 +1,3 @@
+- github: https://github.com/luizomf/conceitos_nest
+- continuar lendo a documentação de Overview/Pipes: https://docs.nestjs.com/exception-filters
+- continuar da aula: https://www.udemy.com/course/nestjs-curso-completo-rest-api-typeorm-jwt-e-mais/learn/lecture/45298753#overview

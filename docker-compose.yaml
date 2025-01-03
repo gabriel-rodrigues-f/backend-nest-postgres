@@ -1,0 +1,62 @@
+services:
+  api:
+    container_name: api
+    depends_on:
+      - database
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: main
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - .:/usr/app:cached
+      - /usr/app/node_modules
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 3
+      start_period: 30s
+    networks:
+      - api_network
+
+  database:
+    container_name: database
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - api_network
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  api_network:
+    driver: bridge

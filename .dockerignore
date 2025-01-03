@@ -1,0 +1,8 @@
+node_modules/
+LICENSE
+README.MD
+util.txt
+dist
+Dockerfile
+docker-compose.yaml
+start.sh
