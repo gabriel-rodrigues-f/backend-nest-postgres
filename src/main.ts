@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app/app.module";
 import { ValidationPipe } from "@nestjs/common";
-import { SimpleExceptionFilter } from "./common/exceptions/simple-exception.filter";
+import { CustomBadRequestException } from "./common/exceptions/custom-bad-request-exception";
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +16,7 @@ async function bootstrap () {
     }),
   );
 
-  app.useGlobalFilters(new SimpleExceptionFilter())
+  app.useGlobalFilters(new CustomBadRequestException())
   await app.listen(3000);
 }
 bootstrap();

@@ -1,7 +1,7 @@
 import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter } from "@nestjs/common";
 
 @Catch(BadRequestException)
-export class SimpleExceptionFilter<T extends BadRequestException> implements ExceptionFilter {
+export class CustomBadRequestException<T extends BadRequestException> implements ExceptionFilter {
   catch (exception: T, host: ArgumentsHost) {
     const context = host.switchToHttp()
     const response = context.getResponse()

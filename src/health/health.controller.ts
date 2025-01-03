@@ -7,9 +7,8 @@ export class HealthController {
   @HttpCode(HttpStatus.OK)
   @Get()
   check (): any {
-    // return {
-    //   status: "Healthy",
-    // };
-    throw new BadRequestException('An error occurred')
+    return {
+      status: "Healthy",
+    };
   }
 }
