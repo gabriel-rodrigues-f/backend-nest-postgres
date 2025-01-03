@@ -1,18 +1,20 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { MessagesModule } from "../messages/messages.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PersonModule } from "src/person/person.module";
 import { HealthModule } from "src/health/health.module";
+import { SimpleMiddleware } from "src/common/middlewares/simple.middleware";
+import env from "src/common/config/env";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: "postgres",
-      host: process.env.DATABASE_HOST,
-      port: +process.env.DATABASE_PORT,
-      database: process.env.DATABASE_NAME,
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
+      type: 'postgres',
+      host: env.DATABASE.HOST,
+      port: env.DATABASE.PORT,
+      database: env.DATABASE.DATABASE,
+      username: env.DATABASE.USERNAME,
+      password: env.DATABASE.PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
     }),
@@ -24,6 +26,11 @@ import { HealthModule } from "src/health/health.module";
   providers: [],
 })
 // eslint-disable-next-line prettier/prettier
-export class AppModule { }
-
-
+export class AppModule implements NestModule {
+  configure (consumer: MiddlewareConsumer) {
+    consumer.apply(SimpleMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL
+    })
+  }
+}
