@@ -8,10 +8,19 @@ import env from "src/common/config/env";
 import { APP_FILTER } from "@nestjs/core";
 import { CustomBadRequestException } from "src/common/exceptions/custom-bad-request-exception";
 import { ConfigModule } from "@nestjs/config";
+import * as Joi from '@hapi/joi'
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      validationSchema: Joi.object({
+        DATABASE_HOST: Joi.required(),
+        DATABASE_PORT: Joi.required().default(3000),
+        DATABASE_NAME: Joi.required(),
+        DATABASE_USER: Joi.required(),
+        DATABASE_PASSWORD: Joi.required(),
+      })
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: env.DATABASE.HOST,
