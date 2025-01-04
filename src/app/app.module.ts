@@ -7,9 +7,11 @@ import { SimpleMiddleware } from "src/common/middlewares/simple.middleware";
 import env from "src/common/config/env";
 import { APP_FILTER } from "@nestjs/core";
 import { CustomBadRequestException } from "src/common/exceptions/custom-bad-request-exception";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: env.DATABASE.HOST,
