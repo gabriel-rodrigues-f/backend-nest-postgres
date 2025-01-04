@@ -5,6 +5,8 @@ import { PersonModule } from "src/person/person.module";
 import { HealthModule } from "src/health/health.module";
 import { SimpleMiddleware } from "src/common/middlewares/simple.middleware";
 import env from "src/common/config/env";
+import { APP_FILTER } from "@nestjs/core";
+import { CustomBadRequestException } from "src/common/exceptions/custom-bad-request-exception";
 
 @Module({
   imports: [
@@ -23,7 +25,12 @@ import env from "src/common/config/env";
     PersonModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: CustomBadRequestException
+    }
+  ],
 })
 // eslint-disable-next-line prettier/prettier
 export class AppModule implements NestModule {

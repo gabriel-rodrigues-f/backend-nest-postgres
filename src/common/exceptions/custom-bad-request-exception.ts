@@ -5,6 +5,9 @@ export class CustomBadRequestException<T extends BadRequestException> implements
   catch (exception: T, host: ArgumentsHost) {
     const context = host.switchToHttp()
     const response = context.getResponse()
-    return response.status(400).json({ message: 'Ops' })
+    const error = typeof response === 'string' ? {
+      message: response
+    } : response
+    return response.status(400).json({ ...error })
   }
 }
