@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
+import { forwardRef, MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { MessagesModule } from "../messages/messages.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PersonModule } from "src/person/person.module";

@@ -4,4 +4,4 @@ export const URLParams = createParamDecorator((data: unknown, ctx: ExecutionCont
   const context = ctx.switchToHttp()
   const request = context.getRequest()
   return request.url
-})
+}) 
