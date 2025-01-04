@@ -29,7 +29,7 @@ import { CustomBadRequestException } from "src/common/exceptions/custom-bad-requ
     {
       provide: APP_FILTER,
       useClass: CustomBadRequestException
-    }
+    },
   ],
 })
 // eslint-disable-next-line prettier/prettier

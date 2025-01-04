@@ -18,6 +18,7 @@ import { CreateMessageDto } from "./dto/create-messages.dto";
 import { UpdateMessageDto } from "./dto/update-messages.dto";
 import { PaginationDto } from "src/common/dto/pagination.dto";
 import { ErrorHandlingInterceptor } from "src/common/interceptors/error-handling.interceptor";
+import { URLParams } from "src/common/params/URLParams";
 
 @Controller("messages")
 @UseInterceptors(ErrorHandlingInterceptor)
@@ -40,8 +41,9 @@ export class MessagesController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() createDto: CreateMessageDto): Promise<string> {
+  async create(@Body() createDto: CreateMessageDto, @URLParams() url: string): Promise<string> {
     await this._service.create(createDto);
+    console.log(url)
     return "";
   }
 
